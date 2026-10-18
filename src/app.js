@@ -1,4 +1,5 @@
 const express = require('express');
+const apiRoutes = require('./routes/index');
 
 const app = express();
 
@@ -9,6 +10,12 @@ app.get('/health', (req, res) => {
     estado: 'correcto',
     mensaje: 'API de SismoAyuda funcionando',
   });
+});
+
+app.use('/api', apiRoutes);
+
+app.use((req, res) => {
+  res.status(404).json({ error: 'Ruta no encontrada.' });
 });
 
 module.exports = app;
